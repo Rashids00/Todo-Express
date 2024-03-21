@@ -1,0 +1,68 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Todo List
+    link(href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css", rel="stylesheet")
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css", rel="stylesheet")
+    style.
+      body {
+        background-color: #f8f9fa;
+      }
+      .container {
+        margin-top: 50px;
+      }
+      .todo-box {
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        background-color: #fff;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .task-input {
+        display: flex;
+        align-items: center;
+      }
+      .task-input input {
+        flex: 1;
+        margin-right: 10px;
+      }
+      .task-list li {
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+      }
+      .task-list label {
+        cursor: pointer;
+        flex: 1;
+      }
+      .task-list input[type="checkbox"] {
+        margin-right: 5px;
+      }
+  body
+    .container
+      .todo-box
+        h1 Todo List
+        form#taskForm.task-input.mb-2(action="/tasks", method="POST")
+          input.form-control(type="text", name="input", placeholder="Add a new task", required)
+          button.btn.btn-primary Add
+        ul.list-unstyled.task-list
+          each item in tasks
+            li
+              input(type="checkbox", name='completed', checked=item.status, onchange=`updatestatus('${item._id}')`, data-id=`${item._id}`)
+              label(style= `text-decoration:${item.status ? 'line-through': 'none'}`, data-id=`${item._id}`)= item.input
+              i.fa.fa-trash.btn.btn-danger.btn-sm.ml-2(onclick=`confirmDelete('${item._id}')`)
+  script(src="https://code.jquery.com/jquery-3.6.4.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js")
+  script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js")
+  script(src="js/main.js")
